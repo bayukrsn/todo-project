@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: liveness
+  labels:
+    app: liveness
+    service: liveness
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: liveness

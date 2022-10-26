@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-todo
+spec:
+  selector:
+    matchLabels:
+      app: frontend-todo
+      tier: frontend
+      track: stable
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: frontend-todo
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - name: frontend-todo
+          image: bayukrsn/frontend-todo:v1
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: todo-secret

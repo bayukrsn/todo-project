@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-backend-todo
+  namespace: development
+  labels:
+    app: backend-todo
+data: 
+  DB_HOST: postgres-todo
+  DB_USER: postgres
+  DB_PASSWORD: rahasia
+  DB_PORT: 30622
+  DB_DATABASE: belajar

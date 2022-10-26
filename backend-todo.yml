@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-todo
+spec:
+  selector:
+    matchLabels:
+      app: backend-todo
+      tier: backend
+      track: stable
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: backend-todo
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: backend-todo
+          image: bayukrsn/backend-todo:v1
+          env:
+          - name: DB_HOST
+            value: "postgres-todo"
+          - name: DB_USER
+            value: "postgres"
+          - name: DB_PASSWORD
+            value: "rahasia"
+          - name: DB_PORT
+            value: "5432"
+          - name: DB_DATABASE
+            value: "belajar"
+          ports:
+            - containerPort: 8181
+      imagePullSecrets:
+        - name: todo-secret

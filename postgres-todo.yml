@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-todo
+  namespace: development  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-todo
+  serviceName: postgres-todo-service
+  template:
+    metadata:
+      labels:
+        app: postgres-todo
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:10.1
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432  
+          envFrom:
+            - configMapRef:
+                name: configmap-postgres-todo
+          volumeMounts:
+            - mountPath: /data/volume
+              name: postgresql-data
+      volumes:
+        - name: postgresql-data
+          persistentVolumeClaim:
+            claimName: postgresql-data-claim
